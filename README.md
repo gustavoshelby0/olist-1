@@ -2,13 +2,40 @@
 
 # Problema de Negócio
 
-### A SuperStore é uma rede de supermercados com várias unidades físicas espalhadas por todo o mundo, com o objetivo de fornecer alimentos e comercializar os mais diversos produtos para consumo.
+Você foi contratado pela empresa **Olist** como Analista de Dados Júnior.
 
-O time de gerentes da SuperStore decidiu construir uma área de dados para facilitar as decisões da empresa relacionadas ao abastecimento de produtos das lojas e às vendas.
+A Olist é uma empresa brasileira de e-commerce que começou a crescer rapidamente. Porém, até então, a maioria das decisões era tomada pelo corpo diretivo de forma intuitiva, sem análises aprofundadas e sem o apoio de indicadores confiáveis. Como consequência da falta de uma cultura orientada por dados, a empresa tomou algumas decisões equivocadas que resultaram em prejuízos.
 
-Atualmente, os gerentes têm acesso a algumas planilhas com informações pontuais que auxiliam na tomada de decisão. No entanto, eles gostariam que todos os dados da empresa fossem integrados, de modo que cada área pudesse acompanhar os mesmos indicadores e utilizar uma fonte única de informação.
+Para que a empresa continue crescendo de forma saudável, o CEO, que se sente "cego" em relação aos dados do negócio, decidiu implementar uma estratégia de **Business Intelligence (BI)** com o objetivo de criar indicadores que apoiem a tomada de decisões. Diante dos prejuízos identificados, foi estabelecido que a empresa deixará de se basear em suposições e passará a adotar uma cultura **Data Driven** na tomada de decisões estratégicas.
 
-O time de dados desempenhará um papel importante na criação desses indicadores, pois terá acesso aos dados transacionais da empresa para analisar o comportamento dos clientes. Entre as análises que poderão ser realizadas estão a identificação dos produtos mais comprados, a quantidade adquirida, o tamanho médio da cesta de compras, o valor médio gasto por compra, os produtos devolvidos, o número de pedidos realizados em determinado período e diversos outros indicadores relevantes para o negócio.
+Considerando o melhor custo-benefício, a ferramenta escolhida pelo corpo diretivo foi o **Power BI**.
+
+O CEO decidiu que as análises serão desenvolvidas por frentes de negócio. Assim, ao final de cada entrega, uma nova frente será solicitada ao Analista de Dados. Inicialmente, todo o desenvolvimento deverá ser realizado no **Power BI Desktop**.
+
+As frentes de análise serão desenvolvidas na seguinte ordem:
+
+- Produto
+- Pagamentos
+- Pedidos
+- Avaliações
+- Vendedores
+- Vendas
+
+**Importante:** o CEO deixou claro que aceitará, no máximo, **dois painéis por visão**.
+
+## Primeira tarefa
+
+Sua primeira missão como membro da equipe é desenvolver a **Visão Produto**.
+
+Durante a reunião com o CEO, foram definidas as seguintes solicitações de análise:
+
+- Quantidade total de produtos cadastrados;
+- Quantidade total de categorias;
+- Quantidade total de fotos;
+- Quantidade de produtos por categoria;
+- Quantidade de fotos por categoria.
+
+Além disso, o CEO solicitou que o dashboard utilize as **cores padrão da empresa** e possua um **filtro por categoria de produto**.
 
 # Premissas da análise
 
