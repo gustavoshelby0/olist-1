@@ -349,22 +349,14 @@ A reorganização completa da modelagem e da seleção dos gráficos não foi re
 
 ## Passo 7: Painel Macro-Micro
 
-[https://img.notionusercontent.com/s3/prod-files-secure%2F2b76fb90-3276-8107-9a2b-0003db8f3f1b%2F559e753e-ca94-4d58-97e5-2cf9018ed757%2FCapturar.png/size/w=2000?exp=1782695552&sig=WhAahVMGwk-4q-j_K8-f3v_bZCRHuSz-Lx-xrUz4v6k&imgBuildSrc=presignImageUrl&id=38e6fb90-3276-8076-b420-e1499e5d1c32&table=block&userId=2cdd872b-594c-8197-aa3d-0002004cefb4&mtd=com](https://img.notionusercontent.com/s3/prod-files-secure%2F2b76fb90-3276-8107-9a2b-0003db8f3f1b%2F559e753e-ca94-4d58-97e5-2cf9018ed757%2FCapturar.png/size/w=2000?exp=1782695552&sig=WhAahVMGwk-4q-j_K8-f3v_bZCRHuSz-Lx-xrUz4v6k&imgBuildSrc=presignImageUrl&id=38e6fb90-3276-8076-b420-e1499e5d1c32&table=block&userId=2cdd872b-594c-8197-aa3d-0002004cefb4&mtd=com)
+
 
 
 # Resultados
 
-**📥 Baixe o gráfico no Excel com toda análise descritiva & cohort & rfm (clique no link e, em seguida, em "Download" ou "View raw"):**  
-[https://docs.google.com/spreadsheets/d/1KP8CIZnk1aWoTs4k4oS6yJi1f8BWoemB/edit?usp=sharing&ouid=114029927907630112086&rtpof=true&sd=true](https://docs.google.com/spreadsheets/d/1KP8CIZnk1aWoTs4k4oS6yJi1f8BWoemB/edit?usp=sharing&ouid=114029927907630112086&rtpof=true&sd=true)
+**📥 Baixe todos os paineis da Olist (clique no link e, em seguida, em "Download" ou "View raw"):**  
+[https://drive.google.com/file/d/1IKfGu8_IAGmM31BCFYhJILYpoZmQ6201/view?usp=sharing](https://drive.google.com/file/d/1IKfGu8_IAGmM31BCFYhJILYpoZmQ6201/view?usp=sharing)
 
 # Próximos passos
 
-**Passo 1 – Recalcular a segmentação RFM substituindo a coluna "Monetização" pela coluna "Profit" (Lucro):** Os dados atuais de monetização mostram que Risco e Fies faturam R$ 12,13 bi. Porém, o dataset contém a coluna Discount e Profit. É necessário verificar se esses segmentos mantêm a liderança quando a métrica é lucro líquido, ou se os descontos concedidos corroem essa vantagem.
-
-**Passo 2 – Cruzar a lista de produtos/categorias do Pareto (80/20) com os segmentos RFM:** Os dados de vendas estão detalhados por Category e Sub-Category. Deve-se identificar quais categorias estão no topo do Pareto para o segmento "Risco" e quais estão no topo para o segmento "Fies". Se houver divergência, a estratégia de estoque e cross-sell deve ser segmentada por perfil de cliente.
-
-**Passo 3 – Calcular o tempo médio entre compras (intervalo) para os segmentos "Risco" e "Fies":** A coorte mostra picos de recompra nos meses 11, 17 e 22. Deve-se calcular, para cada Customer ID desses segmentos, a mediana dos dias entre uma compra e outra. Se a mediana for consistente com 150-180 dias, a janela de reativação deve ser ajustada para D+150 (e não D+60 ou D+90).
-
-**Passo 4 – Medir o impacto do desconto (Discount) na retenção por coorte:** Os dados contêm a coluna Discount. Deve-se segmentar a coorte de Janeiro/2014 entre clientes que receberam desconto > 15% e clientes com desconto ≤ 5%, e comparar as taxas de recompra no mês 11. Se a taxa for significativamente menor no grupo com alto desconto, a política de descontos deve ser revisada para aquisição de novos clientes.
-
-**Passo 5 – Construir um comparativo de ROI por canal/janela temporal:** Com base nas janelas de gelo (meses 2, 5, 8) e de ouro (meses 10, 16, 21), deve-se calcular o custo médio por contato (e-mail/SMS/WhatsApp) e o retorno médio por cliente reativado em cada período. O período que apresentar maior razão retorno/custo deve receber prioridade orçamentária nos próximos ciclos.
+Obter o feedback do CEO para realizar análises mais profundas, considerando os novos questionamentos que provavelmente serão levantados. Em outras palavras, realizar análises diagnósticas para cada área da empresa.
