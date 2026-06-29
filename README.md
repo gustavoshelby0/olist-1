@@ -1,4 +1,4 @@
-## Análise da SuperStore RFM & Cohort & Descriptive
+## Análise da Olist RFM & Cohort & Descriptive
 
 # Problema de Negócio
 
@@ -39,28 +39,26 @@ Além disso, o CEO solicitou que o dashboard utilize as **cores padrão da empre
 
 # Premissas da análise
 
-os setores que vao ser criado as analises sao 
+Os setores que terão análises criadas são:
+
 - Produto
 - Pagamentos
 - Pedidos
 - Avaliações
 - Vendedores
 - Vendas
-  a empresa e Brasileira. e os dados sao referentes a vendas no territoria Brasileiro
 
-
+A empresa é brasileira, e os dados são referentes a vendas no território brasileiro.
 
 # Estratégia da solução
 
-ele foi usado, mas como isso e um material ja entregue nao consigo quebrar a pergunta aberta e fechada e coloca-la aqui de forma profisional para cada setor. (O método Fato-Dimensão foi usado para desenvolver a análise de dados.)
+Ele foi usado, mas, como este é um material já entregue, não consigo quebrar a pergunta aberta e fechada e colocá-la aqui de forma profissional para cada setor. (O método Fato-Dimensão foi usado para desenvolver a análise de dados.)
 
 # Análise Descritiva
 
 ## Passo 1: Resumir o contexto em uma pergunta aberta
 
 As perguntas abertas são um tipo de demanda muito comum em análise de dados nas quais a demanda possui N possíveis soluções e cabe ao analista de dados avaliar as possibilidades e escolher a alternativa com o maior retorno e o menor esforço possível. Para essa análise, foi definida a seguinte pergunta aberta:
-
-
 
 ## Passo 2: Transformar pergunta aberta em fechada
 
@@ -72,8 +70,6 @@ Para essa análise, foi definida a seguinte pergunta fechada:
 
 ## Passo 3: Definição da Coluna Fato
 
-
-
 ## Passo 4: Identificação das Dimensões
 
 
@@ -81,157 +77,116 @@ Para essa análise, foi definida a seguinte pergunta fechada:
    
 Fornece detalhes sobre quem está comprando.
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-customer_id	ID_Cliente	Chave Primária (PK) da dimensão.
-
-customer_unique_id	ID_Cliente_Unico	Identificador único do cliente para toda a base.
-
-customer_zip_code_prefix	FK_Geo_Cliente	Chave estrangeira para localização (Geolocation).
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| customer_id | ID_Cliente | Chave Primária (PK) da dimensão. |
+| customer_unique_id | ID_Cliente_Unico | Identificador único do cliente para toda a base. |
+| customer_zip_code_prefix | FK_Geo_Cliente | Chave estrangeira para localização (Geolocation). |
 
 
 2. Dimensão Geolocalização
    
 Usada para localizar clientes e vendedores (Snowflake - ligação indireta).
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-geolocation_zip_code_prefix	ID_Geo	Chave Primária (PK) - CEP de prefixo.
-
-geolocation_lat	Latitude	Coordenada geográfica.
-
-geolocation_lng	Longitude	Coordenada geográfica.
-
-geolocation_city	Cidade	Nome da cidade.
-
-geolocation_state	Estado	Sigla do estado (UF).
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| geolocation_zip_code_prefix | ID_Geo | Chave Primária (PK) - CEP de prefixo. |
+| geolocation_lat | Latitude | Coordenada geográfica. |
+| geolocation_lng | Longitude | Coordenada geográfica. |
+| geolocation_city | Cidade | Nome da cidade. |
+| geolocation_state | Estado | Sigla do estado (UF). |
 
 3. Dimensão Pedido (Cabeçalho)
    
 Agrupa os itens e contém informações do status geral da compra.
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-order_id	ID_Pedido	Chave Primária (PK).
-
-customer_id	FK_Cliente	Chave estrangeira para o Cliente que fez o pedido.
-
-order_status	Status_Pedido	Situação atual (ex: delivered, shipped, canceled).
-
-order_purchase_timestamp	FK_Data_Compra	Chave estrangeira para Dimensão Tempo (Data da compra).
-
-order_approved_at	FK_Data_Aprovacao	Chave para Tempo (Data de aprovação do pagamento).
-
-order_delivered_carrier_date	FK_Data_Envio_Transp	Chave para Tempo (Data de postagem no transportador).
-
-order_delivered_customer_date	FK_Data_Entrega	Chave para Tempo (Data de entrega ao cliente).
-
-order_estimated_delivery_date	FK_Data_Prevista	Chave para Tempo (Data prevista de entrega).
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| order_id | ID_Pedido | Chave Primária (PK). |
+| customer_id | FK_Cliente | Chave estrangeira para o Cliente que fez o pedido. |
+| order_status | Status_Pedido | Situação atual (ex: delivered, shipped, canceled). |
+| order_purchase_timestamp | FK_Data_Compra | Chave estrangeira para Dimensão Tempo (Data da compra). |
+| order_approved_at | FK_Data_Aprovacao | Chave para Tempo (Data de aprovação do pagamento). |
+| order_delivered_carrier_date | FK_Data_Envio_Transp | Chave para Tempo (Data de postagem no transportador). |
+| order_delivered_customer_date | FK_Data_Entrega | Chave para Tempo (Data de entrega ao cliente). |
+| order_estimated_delivery_date | FK_Data_Prevista | Chave para Tempo (Data prevista de entrega). |
 
 4. Dimensão Produto
    
 Descreve as características físicas e de categorização do item.
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-product_id	ID_Produto	Chave Primária (PK).
-
-product_category_name	FK_Categoria	Chave estrangeira para a Dimensão Categoria (idioma PT).
-
-product_name_lenght	Tamanho_Nome	Número de caracteres do nome.
-
-product_description_lenght	Tamanho_Desc	Número de caracteres da descrição.
-
-product_photos_qty	Qtd_Fotos	Quantidade de imagens do produto.
-
-product_weight_g	Peso_g	Peso em gramas.
-
-product_length_cm	Comprimento_cm	Dimensão física do produto.
-
-product_height_cm	Altura_cm	Dimensão física do produto.
-
-product_width_cm	Largura_cm	Dimensão física do produto.
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| product_id | ID_Produto | Chave Primária (PK). |
+| product_category_name | FK_Categoria | Chave estrangeira para a Dimensão Categoria (idioma PT). |
+| product_name_lenght | Tamanho_Nome | Número de caracteres do nome. |
+| product_description_lenght | Tamanho_Desc | Número de caracteres da descrição. |
+| product_photos_qty | Qtd_Fotos | Quantidade de imagens do produto. |
+| product_weight_g | Peso_g | Peso em gramas. |
+| product_length_cm | Comprimento_cm | Dimensão física do produto. |
+| product_height_cm | Altura_cm | Dimensão física do produto. |
+| product_width_cm | Largura_cm | Dimensão física do produto. |
 
 5. Dimensão Categoria (Tradução)
    
 Tabela auxiliar para descrever a categoria em Inglês.
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-product_category_name	ID_Categoria_PT	Chave Primária (PK) - Nome em Português.
-
-product_category_name_english	Categoria_EN	Tradução para o Inglês (útil para dashboards).
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| product_category_name | ID_Categoria_PT | Chave Primária (PK) - Nome em Português. |
+| product_category_name_english | Categoria_EN | Tradução para o Inglês (útil para dashboards). |
 
 6. Dimensão Vendedor
 
 Fornece dados sobre o lojista que está vendendo o produto.
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-seller_id	ID_Vendedor	Chave Primária (PK).
-
-seller_zip_code_prefix	FK_Geo_Vendedor	Chave estrangeira para localização (Geolocation).
-
-seller_city	Cidade_Vendedor	Cidade do vendedor (denormalizado).
-
-seller_state	Estado_Vendedor	Estado do vendedor (denormalizado).
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| seller_id | ID_Vendedor | Chave Primária (PK). |
+| seller_zip_code_prefix | FK_Geo_Vendedor | Chave estrangeira para localização (Geolocation). |
+| seller_city | Cidade_Vendedor | Cidade do vendedor (denormalizado). |
+| seller_state | Estado_Vendedor | Estado do vendedor (denormalizado). |
 
 7. Dimensão Pagamento
+
 Detalha como foi pago o pedido (pode ter múltiplas linhas por pedido).
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-order_id	FK_Order	Chave estrangeira ligada ao Pedido.
-
-payment_sequential	Sequencia_Pag	Número da parcela/sequência (PK composta com Order).
-
-payment_type	Tipo_Pagamento	Método (ex: credit_card, boleto, voucher).
-
-payment_installments	Qtd_Parcelas	Número total de parcelas.
-
-payment_value	Valor_Parcela	Medida: Valor pago naquela transação específica.
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| order_id | FK_Order | Chave estrangeira ligada ao Pedido. |
+| payment_sequential | Sequencia_Pag | Número da parcela/sequência (PK composta com Order). |
+| payment_type | Tipo_Pagamento | Método (ex: credit_card, boleto, voucher). |
+| payment_installments | Qtd_Parcelas | Número total de parcelas. |
+| payment_value | Valor_Parcela | Medida: Valor pago naquela transação específica. |
 
 8. Dimensão Avaliação (Review)
 
 Contém a nota e comentários sobre a experiência do pedido.
 
-Coluna na Fonte	Nome no Modelo	Descrição
-
-review_id	ID_Avaliacao	Chave Primária (PK).
-
-order_id	FK_Order	Chave estrangeira para o Pedido.
-
-review_score	Nota	Atributo: Nota de 1 a 5.
-
-review_comment_title	Titulo_Coment	Título do comentário.
-
-review_comment_message	Mensagem	Texto completo da avaliação.
-
-review_creation_date	FK_Data_Criacao	Chave para Tempo (Data que a avaliação foi criada).
-
-review_answer_timestamp	FK_Data_Resposta	Chave para Tempo (Data que o vendedor respondeu).
+| Coluna na Fonte | Nome no Modelo | Descrição |
+| :--- | :--- | :--- |
+| review_id | ID_Avaliacao | Chave Primária (PK). |
+| order_id | FK_Order | Chave estrangeira para o Pedido. |
+| review_score | Nota | Atributo: Nota de 1 a 5. |
+| review_comment_title | Titulo_Coment | Título do comentário. |
+| review_comment_message | Mensagem | Texto completo da avaliação. |
+| review_creation_date | FK_Data_Criacao | Chave para Tempo (Data que a avaliação foi criada). |
+| review_answer_timestamp | FK_Data_Resposta | Chave para Tempo (Data que o vendedor respondeu). |
 
 9. Dimensão Tempo (Derivada)
 
 Criada para análises temporais. Extraída das colunas com _timestamp ou _date.
 
-Coluna no Modelo	Descrição
-
-ID_Data	Chave Primária (ex: AAAAMMDD).
-
-Data_Completa	Data no formato padrão (YYYY-MM-DD).
-
-Ano	Extraído da data.
-
-Mes	Extraído da data.
-
-Mes_Nome	Nome do mês (ex: Janeiro).
-
-Trimestre	Número do trimestre (1 a 4).
-
-Dia_Semana	Nome do dia da semana.
-
-Final_de_Semana?	Flag (Sim/Não) para dias de Sábado e Domingo.
+| Coluna no Modelo | Descrição |
+| :--- | :--- |
+| ID_Data | Chave Primária (ex: AAAAMMDD). |
+| Data_Completa | Data no formato padrão (YYYY-MM-DD). |
+| Ano | Extraído da data. |
+| Mes | Extraído da data. |
+| Mes_Nome | Nome do mês (ex: Janeiro). |
+| Trimestre | Número do trimestre (1 a 4). |
+| Dia_Semana | Nome do dia da semana. |
+| Final_de_Semana? | Flag (Sim/Não) para dias de Sábado e Domingo. |
 
 
 ## Passo 5: Combinação Fato-Dimensão
@@ -245,107 +200,107 @@ Para orientar a exploração dos dados, mesmo sendo um analista novo no setor, f
 
 *Base: colunas de timestamp da Dimensão Pedido e da Fato.*
 
-1. **Qtd de Pedidos por Mês** (data da compra – `order_purchase_timestamp`).
-2. **Valor Total de Vendas (`SUM(price)`) por Trimestre** (data da compra).
-3. **Qtd de Itens Vendidos por Dia da Semana** (data da compra – ex: seg, ter...).
-4. **Qtd de Pedidos por Mês de Envio** (data limite de envio – `shipping_limit_date` da Fato).
-5. **Ticket Médio (`SUM(price)/COUNT(DISTINCT order_id)`) por Ano** (data da compra).
+1. **Qtd de Pedidos por Mês** (data da compra – `order_purchase_timestamp`).
+2. **Valor Total de Vendas (`SUM(price)`) por Trimestre** (data da compra).
+3. **Qtd de Itens Vendidos por Dia da Semana** (data da compra – ex: seg, ter...).
+4. **Qtd de Pedidos por Mês de Envio** (data limite de envio – `shipping_limit_date` da Fato).
+5. **Ticket Médio (`SUM(price)/COUNT(DISTINCT order_id)`) por Ano** (data da compra).
 
 ---
 
 ### **Dimensão 2: Cliente (Quem Comprou)**
 
-*Base: `customer_id`, `customer_unique_id` e geolocalização ligada.*
+*Base: `customer_id`, `customer_unique_id` e geolocalização ligada.*
 
-1. **Qtd de Pedidos por Estado do Cliente** (via `geolocation_state`).
-2. **Valor Total de Vendas por Cidade do Cliente** (via `geolocation_city`).
-3. **Qtd de Itens Comprados por Cliente** (Ranking dos Top 10).
+1. **Qtd de Pedidos por Estado do Cliente** (via `geolocation_state`).
+2. **Valor Total de Vendas por Cidade do Cliente** (via `geolocation_city`).
+3. **Qtd de Itens Comprados por Cliente** (Ranking dos Top 10).
 4. **Valor Médio de Frete (`AVG(freight_value)`) por Cliente**.
-5. **Qtd de Pedidos por Faixa de CEP** (agrupando os 3 primeiros dígitos do `zip_code_prefix`).
+5. **Qtd de Pedidos por Faixa de CEP** (agrupando os 3 primeiros dígitos do `zip_code_prefix`).
 
 ---
 
 ### **Dimensão 3: Geolocalização (Localização do Cliente/Vendedor)**
 
-*Base: `geolocation_zip_code_prefix` (tabela auxiliar para enriquecer localização).*
+*Base: `geolocation_zip_code_prefix` (tabela auxiliar para enriquecer localização).*
 
-1. **Qtd de Pedidos por Região do Brasil** (agrupar `geolocation_state` em Sul, Sudeste, Centro-Oeste, Norte, Nordeste).
-2. **Valor Total de Vendas por Estado** (do cliente).
-3. **Qtd de Pedidos por Cidade** (do cliente – lista das Top 10).
-4. **Comparativo: Qtd de Pedidos por Estado do Cliente vs. Estado do Vendedor** (cruzamento indireto entre duas localizações).
-5. **Valor Total de Frete por Estado do Cliente** (para ver onde o frete é mais caro).
+1. **Qtd de Pedidos por Região do Brasil** (agrupar `geolocation_state` em Sul, Sudeste, Centro-Oeste, Norte, Nordeste).
+2. **Valor Total de Vendas por Estado** (do cliente).
+3. **Qtd de Pedidos por Cidade** (do cliente – lista das Top 10).
+4. **Comparativo: Qtd de Pedidos por Estado do Cliente vs. Estado do Vendedor** (cruzamento indireto entre duas localizações).
+5. **Valor Total de Frete por Estado do Cliente** (para ver onde o frete é mais caro).
 
 ---
 
 ### **Dimensão 4: Produto (O que foi Vendido)**
 
-*Base: `product_id` e seus atributos físicos.*
+*Base: `product_id` e seus atributos físicos.*
 
-1. **Qtd de Itens Vendidos por Produto** (Top 10 produtos mais vendidos).
-2. **Valor Total de Vendas por Produto** (Ranking de faturamento).
+1. **Qtd de Itens Vendidos por Produto** (Top 10 produtos mais vendidos).
+2. **Valor Total de Vendas por Produto** (Ranking de faturamento).
 3. **Preço Médio Unitário (`AVG(price)`) por Produto**.
-4. **Qtd de Pedidos que contêm determinado Produto** (popularidade em pedidos distintos).
-5. **Correlação / Média de Frete por Faixa de Peso do Produto** (agrupar `product_weight_g` em categorias: Leve, Médio, Pesado).
+4. **Qtd de Pedidos que contêm determinado Produto** (popularidade em pedidos distintos).
+5. **Correlação / Média de Frete por Faixa de Peso do Produto** (agrupar `product_weight_g` em categorias: Leve, Médio, Pesado).
 
 ---
 
 ### **Dimensão 5: Categoria (Tradução e Agrupamento de Produtos)**
 
-*Base: `product_category_name` + tabela de tradução para Inglês.*
+*Base: `product_category_name` + tabela de tradução para Inglês.*
 
-1. **Qtd de Itens Vendidos por Categoria** (nome em Português).
-2. **Valor Total de Vendas por Categoria** (nome em Inglês – para dashboards).
-3. **Ticket Médio por Categoria** (média de preço por pedido dentro da categoria).
-4. **Média de Avaliação (`AVG(review_score)`) por Categoria** (quais categorias são melhor avaliadas).
-5. **Qtd de Pedidos com Atraso na Entrega por Categoria** (cruzando com flag de atraso da Dimensão Pedido).
+1. **Qtd de Itens Vendidos por Categoria** (nome em Português).
+2. **Valor Total de Vendas por Categoria** (nome em Inglês – para dashboards).
+3. **Ticket Médio por Categoria** (média de preço por pedido dentro da categoria).
+4. **Média de Avaliação (`AVG(review_score)`) por Categoria** (quais categorias são melhor avaliadas).
+5. **Qtd de Pedidos com Atraso na Entrega por Categoria** (cruzando com flag de atraso da Dimensão Pedido).
 
 ---
 
 ### **Dimensão 6: Vendedor (Lojista)**
 
-*Base: `seller_id` e sua localização.*
+*Base: `seller_id` e sua localização.*
 
-1. **Qtd de Itens Vendidos por Vendedor** (volume de vendas).
-2. **Valor Total de Vendas por Vendedor** (faturamento).
-3. **Valor Total de Frete Cobrado por Vendedor** (soma do frete dos itens dele).
-4. **Média de Preço dos Produtos do Vendedor** (se vende itens caros ou baratos).
-5. **Qtd de Pedidos Atendidos por Vendedor** (quantos pedidos distintos ele participou).
+1. **Qtd de Itens Vendidos por Vendedor** (volume de vendas).
+2. **Valor Total de Vendas por Vendedor** (faturamento).
+3. **Valor Total de Frete Cobrado por Vendedor** (soma do frete dos itens dele).
+4. **Média de Preço dos Produtos do Vendedor** (se vende itens caros ou baratos).
+5. **Qtd de Pedidos Atendidos por Vendedor** (quantos pedidos distintos ele participou).
 
 ---
 
 ### **Dimensão 7: Pedido (Cabeçalho - Status e Prazos)**
 
-*Base: `order_id`, `order_status`, datas de entrega vs estimada.*
+*Base: `order_id`, `order_status`, datas de entrega vs estimada.*
 
-1. **Qtd de Pedidos por Status** (`delivered`, `shipped`, `canceled`, etc.).
-2. **Qtd de Pedidos Entregues com Atraso** vs. **Entregues no Prazo** (comparar `order_delivered_customer_date` com `order_estimated_delivery_date`).
-3. **Valor Total de Vendas por Status do Pedido** (faturamento por situação).
-4. **Média de Dias para Entrega** (do `order_purchase_timestamp` ao `order_delivered_customer_date`) por Status.
-5. **Qtd de Pedidos Cancelados por Mês** (série temporal de cancelamentos).
+1. **Qtd de Pedidos por Status** (`delivered`, `shipped`, `canceled`, etc.).
+2. **Qtd de Pedidos Entregues com Atraso** vs. **Entregues no Prazo** (comparar `order_delivered_customer_date` com `order_estimated_delivery_date`).
+3. **Valor Total de Vendas por Status do Pedido** (faturamento por situação).
+4. **Média de Dias para Entrega** (do `order_purchase_timestamp` ao `order_delivered_customer_date`) por Status.
+5. **Qtd de Pedidos Cancelados por Mês** (série temporal de cancelamentos).
 
 ---
 
 ### **Dimensão 8: Pagamento (Forma e Parcelamento)**
 
-*Base: `payment_type`, `payment_installments`, `payment_value`.*
+*Base: `payment_type`, `payment_installments`, `payment_value`.*
 
-1. **Qtd de Pedidos por Tipo de Pagamento** (`credit_card`, `boleto`, `voucher`, etc.).
-2. **Valor Total de Vendas por Tipo de Pagamento** (faturamento por método).
+1. **Qtd de Pedidos por Tipo de Pagamento** (`credit_card`, `boleto`, `voucher`, etc.).
+2. **Valor Total de Vendas por Tipo de Pagamento** (faturamento por método).
 3. **Média de Parcelas (`AVG(payment_installments)`) por Tipo de Pagamento**.
-4. **Qtd de Pedidos com Pagamento à Vista** (1 parcela) vs. **Parcelado** (>1 parcela).
-5. **Valor Médio do Pedido por Faixa de Parcelas** (ex: 1 parcela, 2 a 6, 7 ou mais).
+4. **Qtd de Pedidos com Pagamento à Vista** (1 parcela) vs. **Parcelado** (>1 parcela).
+5. **Valor Médio do Pedido por Faixa de Parcelas** (ex: 1 parcela, 2 a 6, 7 ou mais).
 
 ---
 
 ### **Dimensão 9: Avaliação (Review e Notas)**
 
-*Base: `review_score`, comentários e datas de criação/resposta.*
+*Base: `review_score`, comentários e datas de criação/resposta.*
 
-1. **Qtd de Pedidos por Nota** (distribuição das notas 1, 2, 3, 4, 5).
-2. **Valor Total de Vendas por Faixa de Nota** (Baixa = 1-2, Média = 3, Alta = 4-5).
-3. **Média de Preço dos Itens por Nota** (clientes que dão nota alta gastam mais?).
-4. **Qtd de Comentários com Texto Preenchido** (`review_comment_message IS NOT NULL`) por Nota.
-5. **Tempo Médio (em dias) entre a Data de Entrega e a Data da Avaliação** (`review_creation_date`) por Nota (clientes que avaliam rápido dão notas melhores?).
+1. **Qtd de Pedidos por Nota** (distribuição das notas 1, 2, 3, 4, 5).
+2. **Valor Total de Vendas por Faixa de Nota** (Baixa = 1-2, Média = 3, Alta = 4-5).
+3. **Média de Preço dos Itens por Nota** (clientes que dão nota alta gastam mais?).
+4. **Qtd de Comentários com Texto Preenchido** (`review_comment_message IS NOT NULL`) por Nota.
+5. **Tempo Médio (em dias) entre a Data de Entrega e a Data da Avaliação** (`review_creation_date`) por Nota (clientes que avaliam rápido dão notas melhores?).
 
 
 ## Passo 6: Escolha dos Gráficos
@@ -361,7 +316,7 @@ Coloquei a apresentação já feita abaixo para download. Por isso, não estou m
 
 # Resultados
 
-**📥 Baixe todos os paineis da Olist (clique no link e, em seguida, em "Download" ou "View raw"):**  
+**📥 Baixe todos os painéis da Olist (clique no link e, em seguida, em "Download" ou "View raw"):**  
 [https://drive.google.com/file/d/1IKfGu8_IAGmM31BCFYhJILYpoZmQ6201/view?usp=sharing](https://drive.google.com/file/d/1IKfGu8_IAGmM31BCFYhJILYpoZmQ6201/view?usp=sharing)
 
 # Próximos passos
