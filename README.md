@@ -71,91 +71,159 @@ O Fato é a coluna de interesse que representa o ponto focal da análise. Nesse 
 
 
 1. Dimensão Cliente
+   
 Fornece detalhes sobre quem está comprando.
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 customer_id	ID_Cliente	Chave Primária (PK) da dimensão.
+
 customer_unique_id	ID_Cliente_Unico	Identificador único do cliente para toda a base.
+
 customer_zip_code_prefix	FK_Geo_Cliente	Chave estrangeira para localização (Geolocation).
+
+
 2. Dimensão Geolocalização
+   
 Usada para localizar clientes e vendedores (Snowflake - ligação indireta).
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 geolocation_zip_code_prefix	ID_Geo	Chave Primária (PK) - CEP de prefixo.
+
 geolocation_lat	Latitude	Coordenada geográfica.
+
 geolocation_lng	Longitude	Coordenada geográfica.
+
 geolocation_city	Cidade	Nome da cidade.
+
 geolocation_state	Estado	Sigla do estado (UF).
+
 3. Dimensão Pedido (Cabeçalho)
+   
 Agrupa os itens e contém informações do status geral da compra.
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 order_id	ID_Pedido	Chave Primária (PK).
+
 customer_id	FK_Cliente	Chave estrangeira para o Cliente que fez o pedido.
+
 order_status	Status_Pedido	Situação atual (ex: delivered, shipped, canceled).
+
 order_purchase_timestamp	FK_Data_Compra	Chave estrangeira para Dimensão Tempo (Data da compra).
+
 order_approved_at	FK_Data_Aprovacao	Chave para Tempo (Data de aprovação do pagamento).
+
 order_delivered_carrier_date	FK_Data_Envio_Transp	Chave para Tempo (Data de postagem no transportador).
+
 order_delivered_customer_date	FK_Data_Entrega	Chave para Tempo (Data de entrega ao cliente).
+
 order_estimated_delivery_date	FK_Data_Prevista	Chave para Tempo (Data prevista de entrega).
+
 4. Dimensão Produto
+   
 Descreve as características físicas e de categorização do item.
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 product_id	ID_Produto	Chave Primária (PK).
+
 product_category_name	FK_Categoria	Chave estrangeira para a Dimensão Categoria (idioma PT).
+
 product_name_lenght	Tamanho_Nome	Número de caracteres do nome.
+
 product_description_lenght	Tamanho_Desc	Número de caracteres da descrição.
+
 product_photos_qty	Qtd_Fotos	Quantidade de imagens do produto.
+
 product_weight_g	Peso_g	Peso em gramas.
+
 product_length_cm	Comprimento_cm	Dimensão física do produto.
+
 product_height_cm	Altura_cm	Dimensão física do produto.
+
 product_width_cm	Largura_cm	Dimensão física do produto.
+
 5. Dimensão Categoria (Tradução)
+   
 Tabela auxiliar para descrever a categoria em Inglês.
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 product_category_name	ID_Categoria_PT	Chave Primária (PK) - Nome em Português.
+
 product_category_name_english	Categoria_EN	Tradução para o Inglês (útil para dashboards).
+
 6. Dimensão Vendedor
+
 Fornece dados sobre o lojista que está vendendo o produto.
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 seller_id	ID_Vendedor	Chave Primária (PK).
+
 seller_zip_code_prefix	FK_Geo_Vendedor	Chave estrangeira para localização (Geolocation).
+
 seller_city	Cidade_Vendedor	Cidade do vendedor (denormalizado).
+
 seller_state	Estado_Vendedor	Estado do vendedor (denormalizado).
+
 7. Dimensão Pagamento
 Detalha como foi pago o pedido (pode ter múltiplas linhas por pedido).
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 order_id	FK_Order	Chave estrangeira ligada ao Pedido.
+
 payment_sequential	Sequencia_Pag	Número da parcela/sequência (PK composta com Order).
+
 payment_type	Tipo_Pagamento	Método (ex: credit_card, boleto, voucher).
+
 payment_installments	Qtd_Parcelas	Número total de parcelas.
+
 payment_value	Valor_Parcela	Medida: Valor pago naquela transação específica.
+
 8. Dimensão Avaliação (Review)
+
 Contém a nota e comentários sobre a experiência do pedido.
 
 Coluna na Fonte	Nome no Modelo	Descrição
+
 review_id	ID_Avaliacao	Chave Primária (PK).
+
 order_id	FK_Order	Chave estrangeira para o Pedido.
+
 review_score	Nota	Atributo: Nota de 1 a 5.
+
 review_comment_title	Titulo_Coment	Título do comentário.
+
 review_comment_message	Mensagem	Texto completo da avaliação.
+
 review_creation_date	FK_Data_Criacao	Chave para Tempo (Data que a avaliação foi criada).
+
 review_answer_timestamp	FK_Data_Resposta	Chave para Tempo (Data que o vendedor respondeu).
+
 9. Dimensão Tempo (Derivada)
+
 Criada para análises temporais. Extraída das colunas com _timestamp ou _date.
 
 Coluna no Modelo	Descrição
+
 ID_Data	Chave Primária (ex: AAAAMMDD).
+
 Data_Completa	Data no formato padrão (YYYY-MM-DD).
+
 Ano	Extraído da data.
+
 Mes	Extraído da data.
+
 Mes_Nome	Nome do mês (ex: Janeiro).
+
 Trimestre	Número do trimestre (1 a 4).
+
 Dia_Semana	Nome do dia da semana.
+
 Final_de_Semana?	Flag (Sim/Não) para dias de Sábado e Domingo.
 
 
