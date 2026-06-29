@@ -39,9 +39,16 @@ Além disso, o CEO solicitou que o dashboard utilize as **cores padrão da empre
 
 # Premissas da análise
 
-- Dados de 9.994 vendas feitas pela SuperStore.
-- Vendas realizadas nos Estados Unidos.
-- Os dados analisados correspondem ao período de 2014 a 2018.
+os setores que vao ser criado as analises sao 
+- Produto
+- Pagamentos
+- Pedidos
+- Avaliações
+- Vendedores
+- Vendas
+  a empresa e Brasileira. e os dados sao referentes a vendas no territoria Brasileiro
+
+
 
 # Estratégia da solução
 
