@@ -349,7 +349,7 @@ A reorganização completa da modelagem e da seleção dos gráficos não foi re
 
 ## Passo 7: Painel Macro-Micro
 
-
+Coloquei a apresentação já feita abaixo para download. Por isso, não estou mostrando aqui o protótipo da análise, que é necessário em todos os casos para alinhar o que será entregue com o que o gestor ou o CEO realmente deseja. Dessa forma, evita-se a realização de análises imprecisas e de entregas que não estejam alinhadas com os objetivos da diretoria.
 
 
 # Resultados
