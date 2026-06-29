@@ -233,26 +233,119 @@ Final_de_Semana?	Flag (Sim/Não) para dias de Sábado e Domingo.
 
 Para orientar a exploração dos dados, mesmo sendo um analista novo no setor, foram mapeados os seguintes grupos de perguntas:
 
-- Quantidade de Pedidos por Data (Mês)
-- Quantidade de Pedidos por Data de Envio (Mês)
-- Quantidade de Pedidos por Tier de Preço (Baixo, Médio, Alto)
-- Quantidade de Pedidos por Quantidade de Itens
-- Quantidade de Pedidos por Tier de Desconto (Baixo, Médio, Alto)
-- Quantidade de Pedidos por Produto
-- Quantidade de Pedidos por Clientes
-- Quantidade de Pedidos por Data e Tier de Preço (Baixo, Médio, Alto)
-- Quantidade de Pedidos por Data e Quantidade de Itens
-- Quantidade de Pedidos por Data e Produto
-- Quantidade de Pedidos por Data e Clientes
-- Quantidade de Pedidos por Data de Envio e Tier de Preço
+
+### **Dimensão 1: Tempo (Datas de Compra, Envio e Entrega)**
+
+*Base: colunas de timestamp da Dimensão Pedido e da Fato.*
+
+1. **Qtd de Pedidos por Mês** (data da compra – `order_purchase_timestamp`).
+2. **Valor Total de Vendas (`SUM(price)`) por Trimestre** (data da compra).
+3. **Qtd de Itens Vendidos por Dia da Semana** (data da compra – ex: seg, ter...).
+4. **Qtd de Pedidos por Mês de Envio** (data limite de envio – `shipping_limit_date` da Fato).
+5. **Ticket Médio (`SUM(price)/COUNT(DISTINCT order_id)`) por Ano** (data da compra).
+
+---
+
+### **Dimensão 2: Cliente (Quem Comprou)**
+
+*Base: `customer_id`, `customer_unique_id` e geolocalização ligada.*
+
+1. **Qtd de Pedidos por Estado do Cliente** (via `geolocation_state`).
+2. **Valor Total de Vendas por Cidade do Cliente** (via `geolocation_city`).
+3. **Qtd de Itens Comprados por Cliente** (Ranking dos Top 10).
+4. **Valor Médio de Frete (`AVG(freight_value)`) por Cliente**.
+5. **Qtd de Pedidos por Faixa de CEP** (agrupando os 3 primeiros dígitos do `zip_code_prefix`).
+
+---
+
+### **Dimensão 3: Geolocalização (Localização do Cliente/Vendedor)**
+
+*Base: `geolocation_zip_code_prefix` (tabela auxiliar para enriquecer localização).*
+
+1. **Qtd de Pedidos por Região do Brasil** (agrupar `geolocation_state` em Sul, Sudeste, Centro-Oeste, Norte, Nordeste).
+2. **Valor Total de Vendas por Estado** (do cliente).
+3. **Qtd de Pedidos por Cidade** (do cliente – lista das Top 10).
+4. **Comparativo: Qtd de Pedidos por Estado do Cliente vs. Estado do Vendedor** (cruzamento indireto entre duas localizações).
+5. **Valor Total de Frete por Estado do Cliente** (para ver onde o frete é mais caro).
+
+---
+
+### **Dimensão 4: Produto (O que foi Vendido)**
+
+*Base: `product_id` e seus atributos físicos.*
+
+1. **Qtd de Itens Vendidos por Produto** (Top 10 produtos mais vendidos).
+2. **Valor Total de Vendas por Produto** (Ranking de faturamento).
+3. **Preço Médio Unitário (`AVG(price)`) por Produto**.
+4. **Qtd de Pedidos que contêm determinado Produto** (popularidade em pedidos distintos).
+5. **Correlação / Média de Frete por Faixa de Peso do Produto** (agrupar `product_weight_g` em categorias: Leve, Médio, Pesado).
+
+---
+
+### **Dimensão 5: Categoria (Tradução e Agrupamento de Produtos)**
+
+*Base: `product_category_name` + tabela de tradução para Inglês.*
+
+1. **Qtd de Itens Vendidos por Categoria** (nome em Português).
+2. **Valor Total de Vendas por Categoria** (nome em Inglês – para dashboards).
+3. **Ticket Médio por Categoria** (média de preço por pedido dentro da categoria).
+4. **Média de Avaliação (`AVG(review_score)`) por Categoria** (quais categorias são melhor avaliadas).
+5. **Qtd de Pedidos com Atraso na Entrega por Categoria** (cruzando com flag de atraso da Dimensão Pedido).
+
+---
+
+### **Dimensão 6: Vendedor (Lojista)**
+
+*Base: `seller_id` e sua localização.*
+
+1. **Qtd de Itens Vendidos por Vendedor** (volume de vendas).
+2. **Valor Total de Vendas por Vendedor** (faturamento).
+3. **Valor Total de Frete Cobrado por Vendedor** (soma do frete dos itens dele).
+4. **Média de Preço dos Produtos do Vendedor** (se vende itens caros ou baratos).
+5. **Qtd de Pedidos Atendidos por Vendedor** (quantos pedidos distintos ele participou).
+
+---
+
+### **Dimensão 7: Pedido (Cabeçalho - Status e Prazos)**
+
+*Base: `order_id`, `order_status`, datas de entrega vs estimada.*
+
+1. **Qtd de Pedidos por Status** (`delivered`, `shipped`, `canceled`, etc.).
+2. **Qtd de Pedidos Entregues com Atraso** vs. **Entregues no Prazo** (comparar `order_delivered_customer_date` com `order_estimated_delivery_date`).
+3. **Valor Total de Vendas por Status do Pedido** (faturamento por situação).
+4. **Média de Dias para Entrega** (do `order_purchase_timestamp` ao `order_delivered_customer_date`) por Status.
+5. **Qtd de Pedidos Cancelados por Mês** (série temporal de cancelamentos).
+
+---
+
+### **Dimensão 8: Pagamento (Forma e Parcelamento)**
+
+*Base: `payment_type`, `payment_installments`, `payment_value`.*
+
+1. **Qtd de Pedidos por Tipo de Pagamento** (`credit_card`, `boleto`, `voucher`, etc.).
+2. **Valor Total de Vendas por Tipo de Pagamento** (faturamento por método).
+3. **Média de Parcelas (`AVG(payment_installments)`) por Tipo de Pagamento**.
+4. **Qtd de Pedidos com Pagamento à Vista** (1 parcela) vs. **Parcelado** (>1 parcela).
+5. **Valor Médio do Pedido por Faixa de Parcelas** (ex: 1 parcela, 2 a 6, 7 ou mais).
+
+---
+
+### **Dimensão 9: Avaliação (Review e Notas)**
+
+*Base: `review_score`, comentários e datas de criação/resposta.*
+
+1. **Qtd de Pedidos por Nota** (distribuição das notas 1, 2, 3, 4, 5).
+2. **Valor Total de Vendas por Faixa de Nota** (Baixa = 1-2, Média = 3, Alta = 4-5).
+3. **Média de Preço dos Itens por Nota** (clientes que dão nota alta gastam mais?).
+4. **Qtd de Comentários com Texto Preenchido** (`review_comment_message IS NOT NULL`) por Nota.
+5. **Tempo Médio (em dias) entre a Data de Entrega e a Data da Avaliação** (`review_creation_date`) por Nota (clientes que avaliam rápido dão notas melhores?).
+
 
 ## Passo 6: Escolha dos Gráficos
 
-- [x] Quantidade de Pedidos por Data (Mês) - Gráfico de Linhas
-- [x] Desenhar o gráfico de Quantidade de Clientes Únicos
-- [x] Quantidade de Pedidos por Cliente
-- [x] Quantidade de Pedidos por Itens
-- [x] Desenhar o gráfico de Distribuição de Pedidos por Produto
+Este projeto foi reorganizado após a criação dos painéis no Power BI. Por esse motivo, a modelagem fato-dimensão apresentada, bem como a escolha dos gráficos associados a essa coluna, possui caráter ilustrativo e foi adaptada apenas para fins de documentação.
+
+A reorganização completa da modelagem e da seleção dos gráficos não foi realizada, pois o projeto é composto por aproximadamente nove painéis, o que tornaria esse processo desnecessariamente extenso.
 
 ## Passo 7: Painel Macro-Micro
 
