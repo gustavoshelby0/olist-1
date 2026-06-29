@@ -52,7 +52,7 @@ os setores que vao ser criado as analises sao
 
 # Estratégia da solução
 
-O método Fato-Dimensão foi usado para desenvolver a análise de dados.
+ele foi usado, mas como isso e um material ja entregue nao consigo quebrar a pergunta aberta e fechada e coloca-la aqui de forma profisional para cada setor. (O método Fato-Dimensão foi usado para desenvolver a análise de dados.)
 
 # Análise Descritiva
 
@@ -60,7 +60,7 @@ O método Fato-Dimensão foi usado para desenvolver a análise de dados.
 
 As perguntas abertas são um tipo de demanda muito comum em análise de dados nas quais a demanda possui N possíveis soluções e cabe ao analista de dados avaliar as possibilidades e escolher a alternativa com o maior retorno e o menor esforço possível. Para essa análise, foi definida a seguinte pergunta aberta:
 
-*Como estão as vendas da SuperStore? A empresa está dando lucro? Há um crescimento no número de clientes e compras ao longo do tempo?*
+
 
 ## Passo 2: Transformar pergunta aberta em fechada
 
@@ -68,11 +68,11 @@ As perguntas fechadas são um tipo de demanda muito comum na área de análise d
 
 Para essa análise, foi definida a seguinte pergunta fechada:
 
-**Pergunta Fechada:** Faça uma análise das vendas da SuperStore, veja qual categoria está dentro da lei de Pareto (80-20), como estão o número de clientes, o número de pedidos, ele está aumentando? Estagnou? Quais categorias não trazem retorno para a SuperStore? Faça a análise com o gráfico de Pareto.
+**Pergunta Fechada:** 
 
 ## Passo 3: Definição da Coluna Fato
 
-O Fato é a coluna de interesse que representa o ponto focal da análise. Nesse caso, a coluna "OrderID" mostra quantas vendas foram feitas, quando, é feita uma contagem e feito uma segmentação por categoria...
+
 
 ## Passo 4: Identificação das Dimensões
 
