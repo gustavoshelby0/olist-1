@@ -1,4 +1,4 @@
-## Análise da Olist RFM & Cohort & Descriptive
+## Análise Descritiva Mult Setor da Olist 
 
 # Problema de Negócio
 
